@@ -1,21 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 
-export default function App() {
+import MainStack from './src/pages/MainStack';
+
+import { ThemeProvider } from 'styled-components/native';
+import { light } from './src/styles/themes';
+import { StatusBar } from 'expo-status-bar';
+
+export default () => {
   return (
-    <View style={styles.container}>
-      <Text>Sensacional</Text>
+    <>
+      <ThemeProvider theme={light}>
+        <NavigationContainer>
+          <MainStack />
+        </NavigationContainer>
+      </ThemeProvider>
       <StatusBar style="auto" />
-    </View>
+    </>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+};
