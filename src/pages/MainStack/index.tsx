@@ -5,7 +5,7 @@ import SignIn from './views/SignIn'
 import SignUp from './views/SignUp'
 // import User from './views/User'
 
-// import TabStack from './TabStack'
+import TabStack from '../TabStack/index'
 
 const Stack = createStackNavigator()
 
@@ -21,7 +21,7 @@ const MainStack = () => {
         <Stack.Screen name='SignIn' component={SignIn}/>
         <Stack.Screen name='SignUp' component={SignUp}/>
         {/* <Stack.Screen name='User' component={User}/> */}
-        {/* <Stack.Screen name='MainTab' component={TabStack}/> */}
+        <Stack.Screen name='MainTab' component={TabStack}/>
     </Stack.Navigator>
   );
 }

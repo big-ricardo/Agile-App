@@ -1,9 +1,10 @@
 export const light = {
-    backgroundColor: '#63c2d1',
+    backgroundColor: '#FFE9D2',
     text: '#050505',
     secondText: '#050505',
     textInverted: '#fff',
-    primary: '#268596',
-    secound: '#83d6e3',
-    tabColor: '#4eadbe'
+    primary: '#9F9FE9',
+    second: '#FFF8F1',
+    third: '#E1C1A4',
+    tabColor: '#6464B7'
 }

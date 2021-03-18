@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { Container, InputContainer, Button, Text, LabelContainer, Label, LabelBold } from './styles';
 import InputComponent from '../../../../components/InputComponent'
 import {useNavigation} from '@react-navigation/native'
 
-import BarberSVG from '../../../../assets/barber.svg'
+import BarberSVG from '../../../../assets/icon.svg'
 import PersonIcon from '../../../../assets/person.svg'
 import EmailIcon from '../../../../assets/email.svg'
 import LockIcon from '../../../../assets/lock.svg'
 
 import { Alert } from 'react-native';
+import { ThemeContext } from 'styled-components';
+import Api from '../../../../services/Api';
 
 const SignUp = () => {
   const navigate = useNavigation()
+  const theme = useContext(ThemeContext)
 
   const [userField, setUserField] = useState('')
   const [emailField, setEmailField] = useState('')
@@ -20,13 +23,13 @@ const SignUp = () => {
 
   async function HandlerLogin(){
     if(userField !== '' && emailField !== '' && passwordField !== ''){
-      // const response = await Api.signUp(userField, emailField, passwordField)
-      if(true){
+      const response = await Api.signUp(userField, emailField, passwordField)
+      if(response.token){
         navigate.reset({
           routes: [{ name: 'SignIn' }]
         })
       }else{
-        Alert.alert("Erro:" +" response.error")
+        Alert.alert("Erro:" + response.error)
       }
 
     }else{
@@ -36,7 +39,7 @@ const SignUp = () => {
 
   return (
     <Container>
-      <BarberSVG width='100%' height={160} />
+      <BarberSVG width='100%' height={160} fill={theme.primary}/>
 
       <InputContainer>
 

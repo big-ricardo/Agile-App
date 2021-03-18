@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.TouchableOpacity`
-    background-color: ${props=>props.theme.textInverted};
+export const Container = styled.View`
+    background-color: ${props=>props.theme.second};
     margin-bottom: 20px;
     border-radius: 20px;
     padding: 15px;

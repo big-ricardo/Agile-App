@@ -16,6 +16,10 @@ const CustomTabBar = ({ state, navigation }) => {
         navigation.navigate(screenName)
     }
 
+    const Icon = ({ IconSvg, ...props }) => (
+      <IconSvg width='24' height='24' {...props} />
+  )
+
     return (
         <TabArea>
             <TabItem onPress={() => goTo('Home')}>
@@ -36,9 +40,5 @@ const CustomTabBar = ({ state, navigation }) => {
         </TabArea>
     );
 }
-
-const Icon = ({ IconSvg, index, ...props }) => (
-    <IconSvg width='24' height='24' {...props} />
-)
 
 export default CustomTabBar;

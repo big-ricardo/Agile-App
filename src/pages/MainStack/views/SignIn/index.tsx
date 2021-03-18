@@ -4,18 +4,20 @@ import { Container, InputContainer, Button, Text, LabelContainer, Label, LabelBo
 import InputComponent from '../../../../components/InputComponent'
 import { useNavigation } from '@react-navigation/native'
 
-// import Api from '../../../Api'
+import Api from '../../../../services/Api'
 
-import BarberSVG from '../../../../assets/barber.svg'
+import BarberSVG from '../../../../assets/icon.svg'
 import EmailIcon from '../../../../assets/email.svg'
 import LockIcon from '../../../../assets/lock.svg'
 import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ThemeContext } from 'styled-components';
 // import { UserContext } from '../../../contexts/User';
 
 const SignIn = () => {
   //const {dispatch: userDispatch} = useContext(UserContext)
   const navigate = useNavigation()
+  const theme = useContext(ThemeContext)
 
   const [userField, setUserField] = useState('')
   const [passwordField, setPasswordField] = useState('')
@@ -23,10 +25,10 @@ const SignIn = () => {
   async function HandlerLogin() {
 
     if (userField !== '' && passwordField !== '') {
-      // const response = await Api.signIn(userField, passwordField)
-
-      if (false) {
-        // await AsyncStorage.setItem('token', response.token)
+      const response = await Api.signIn(userField, passwordField)
+      console.log(response);
+      if (response.token) {
+        await AsyncStorage.setItem('token', response.token)
         // userDispatch({
         //   type: 'setAvatar',
         //   payload:{
@@ -49,7 +51,7 @@ const SignIn = () => {
 
   return (
     <Container>
-      <BarberSVG width='100%' height={160} />
+      <BarberSVG width='100%' height={160}  fill={theme.primary} />
 
       <InputContainer>
 

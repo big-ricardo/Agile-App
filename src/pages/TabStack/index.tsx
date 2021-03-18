@@ -1,10 +1,24 @@
 import React from 'react';
-import { View } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-// import { Container } from './styles';
+import TabComponent from '../../components/CustomTabBar'
 
-const TabStack: React.FC = () => {
-  return <View />;
-}
+const Tab = createBottomTabNavigator()
 
-export default TabStack;
+import Home from './views/Home'
+import Search from './views/Search'
+import Appointments from './views/Appointments'
+import Favorites from './views/Favorites'
+import Profile from './views/Profile'
+
+const  TabStack = () => (
+    <Tab.Navigator tabBar={props=> <TabComponent {...props} />}>
+        <Tab.Screen name='Home' component={Home}/>
+        <Tab.Screen name='Search' component={Search}/>
+        <Tab.Screen name='Appointments' component={Appointments}/>
+        <Tab.Screen name='Favorites' component={Favorites}/>
+        <Tab.Screen name='Profile' component={Profile}/>
+    </Tab.Navigator>
+)
+
+export default  TabStack;
