@@ -5,12 +5,9 @@ export const Container = styled.SafeAreaView`
     background-color: ${props=> props.theme.primary};
     flex: 1;
 `
-export const Scroller = styled.ScrollView`
-    flex: 1;
-    padding: 20px
-`
-export const FlatList = styled.FlatList`
 
+export const FlatList = styled.FlatList`
+  padding: 20px;
 `
 
 export const Header = styled(Animated.View)`
@@ -23,7 +20,7 @@ export const HeaderText = styled.Text`
     font-size: 24px;
     font-weight: bold;
     color: ${props=>props.theme.textInverted};
-    width: 230px
+    width: 250px
 `
 
 export const SearchButton = styled.TouchableOpacity`
@@ -32,8 +29,7 @@ export const SearchButton = styled.TouchableOpacity`
 `
 
 export const Location = styled.View`
-    background-color: ${props=>props.theme.primary};
-    border: 2px solid  ${props=>props.theme.tabColor};
+    background-color: ${props=>props.theme.tabColor};
     height: 60px;
     border-radius: 30px;
     flex-direction: row;
@@ -55,9 +51,7 @@ export const LocationFinder = styled.TouchableOpacity`
 `
 
 export const LoadingIcon = styled.ActivityIndicator`
-   margin-top: 50px
 `
 export const ListContainer = styled.View`
-   margin-top: 10px;
-   margin-bottom: 20px;
+   margin-top: 20px;
 `

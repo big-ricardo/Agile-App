@@ -4,10 +4,6 @@
     "slug": "Agile-App",
     "version": "1.0.0",
     "orientation": "portrait",
-    "androidStatusBar": {
-      "barStyle": "dark-content",
-      "backgroundColor": "#ffffff"
-    },
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
@@ -47,6 +43,10 @@
         "wasm",
         "svg"
       ]
+    },
+    "androidStatusBar": {
+      "barStyle": "dark-content",
+      "backgroundColor": "#ffffff"
     }
   }
 }

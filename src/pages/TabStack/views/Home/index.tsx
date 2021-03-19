@@ -1,12 +1,24 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Alert, Platform, RefreshControl, Animated, View } from 'react-native'
+import { Alert, RefreshControl, Animated, View } from 'react-native';
 
-import { Container, Scroller, Header, HeaderText, SearchButton, Location, LocationInput, LocationFinder, LoadingIcon, ListContainer, FlatList } from './styles';
+import {
+  Container,
+  Header,
+  HeaderText,
+  SearchButton,
+  Location,
+  LocationInput,
+  LocationFinder,
+  LoadingIcon,
+  ListContainer,
+  FlatList,
+} from './styles';
 
-import SearchIcon from '../../../../assets/search.svg'
-import MyLocationIcon from '../../../../assets/my_location.svg'
+import SearchIcon from '../../../../assets/search.svg';
+import MyLocationIcon from '../../../../assets/my_location.svg';
 import { useNavigation } from '@react-navigation/core';
 import { ThemeContext } from 'styled-components';
+import * as geoLocation from 'expo-location';
 
 // import { request, PERMISSIONS } from 'react-native-permissions'
 // import Geolocation from '@react-native-community/geolocation'
@@ -14,124 +26,153 @@ import Api from '../../../../services/Api';
 import ListItem from '../../../../components/UserItem';
 
 const Home = () => {
+  const [locationField, setLocationField] = useState('');
+  const [coords, setCoords] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [list, setList] = useState([]);
+  const [pagina, setPg] = useState(1);
+  const [scrollY, setScrollY] = useState(new Animated.Value(0));
 
-  const [locationField, setLocationField] = useState('')
-  const [coords, setCoords] = useState(null)
-  const [loading, setLoading] = useState(false)
-  const [refreshing, setRefreshing] = useState(false)
-  const [list, setList] = useState([])
+  const navigation = useNavigation();
+  const theme = useContext(ThemeContext);
 
-  const [scrollY, setScrollY] = useState(new Animated.Value(0))
+  async function getBarbers(pg = 1) {
+    setLoading(true);
+    let lat = coords ? coords.latitude : null;
+    let long = coords ? coords.longitude : null;
 
-  const navigation = useNavigation()
-  const theme = useContext(ThemeContext)
-
-  async function getBarbers() {
-    setLoading(true)
-    setList([])
-    let lat = coords ? coords.latitude : null
-    let long = coords ? coords.longitude : null
-
-    const response = await Api.getUsers(lat, long, locationField)
+    const response = await Api.getUsers(lat, long, locationField);
+    setPg(pg + 1);
 
     if (response.error === '') {
       if (response.loc) {
-        setLocationField(response.loc)
+        setLocationField(response.loc);
       }
-      setList(response.data)
-      setLoading(false)
+      if (pg === 1) {
+        setList(response.data);
+      } else {
+        // setList([...list, ...response.data]);
+        console.log('reload');
+      }
     } else {
-      Alert.alert("Erro:" + response.error)
+      Alert.alert('Erro:' + response.error);
     }
+    setLoading(false);
+    setRefreshing(false);
   }
 
   function handleLocationSearch() {
-    setCoords({})
-    getBarbers()
+    setCoords({});
+    getBarbers();
+  }
+
+  function onRefresh() {
+    setRefreshing(true);
+    getBarbers();
   }
 
   useEffect(() => {
-    getBarbers()
-  }, [])
+    (async () => {
+      await getLocation();
+      getBarbers();
+    })();
+  }, []);
 
-  function onRefresh() {
-    setRefreshing(false)
-    getBarbers()
+  async function getLocation() {
+    let { status } = await geoLocation.requestPermissionsAsync();
+    if (status !== 'granted') {
+      Alert.alert('Permissão negada!');
+      return;
+    }
+
+    const {
+      coords: { latitude, longitude },
+    } = await geoLocation.getCurrentPositionAsync({});
+    setLoading(true);
+    setLocationField('');
+    setCoords({ latitude, longitude });
+    console.log();
   }
 
-  // async function handleLocationFinder() {
-  //   const result = await request(
-  //     Platform.OS === 'ios' ?
-  //       PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
-  //       :
-  //       PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
-  //   )
-
-  //   if (result == 'granted') {
-  //     Geolocation.getCurrentPosition(info => {
-  //       setLoading(true)
-  //       setLocationField('')
-
-  //       setCoords(info.coords)
-
-  //       getBarbers()
-  //     })
-  //   }
-  // }
-
-  return (
-    <Container>
-      <Scroller
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/> }
-        horizontal={false}
-      >
-        <Header style={{
-            height: scrollY.interpolate({
+  const HeaderComponent = (props) => (
+    <>
+      <Header
+        {...props}
+        style={{
+          height: scrollY.interpolate({
             inputRange: [70, 160],
             outputRange: [70, 0],
-            extrapolate: 'clamp'
+            extrapolate: 'clamp',
           }),
           opacity: scrollY.interpolate({
-            inputRange: [60, 145],
+            inputRange: [30, 60],
             outputRange: [1, 0],
-            extrapolate: 'clamp'
+            extrapolate: 'clamp',
           }),
           marginBottom: scrollY.interpolate({
             inputRange: [10, 70],
-            outputRange: [30, -10],
-            extrapolate: 'clamp'
+            outputRange: [30, 73],
+            extrapolate: 'clamp',
           }),
+        }}
+      >
+        <HeaderText numberOfLines={2}>Encontre os usuarios proximos</HeaderText>
+        <SearchButton onPress={() => navigation.navigate('Search')}>
+          <SearchIcon width="26" height="26" fill={theme.textInverted} />
+        </SearchButton>
+      </Header>
 
-        }}>
-          <HeaderText numberOfLines={2}>Encontre os usuarios proximos</HeaderText>
-          <SearchButton onPress={() => navigation.navigate('Search')}>
-            <SearchIcon width='26' height='26' fill={theme.textInverted} />
-          </SearchButton>
-        </Header>
+      <Location>
+        <LocationInput
+          placeholder="Onde você esta?"
+          placeholderTextColor={theme.textInverted}
+          value={locationField}
+          onChangeText={(e) => setLocationField(e)}
+          onEndEditing={handleLocationSearch}
+        />
+        <LocationFinder onPress={() => getLocation()}>
+          <MyLocationIcon width="24" height="24" fill={theme.textInverted} />
+        </LocationFinder>
+      </Location>
+    </>
+  );
 
-        <Location>
-          <LocationInput
-            placeholder='Onde você esta?'
-            placeholderTextColor={theme.textInverted}
-            value={locationField}
-            onChangeText={e => setLocationField(e)}
-            onEndEditing={handleLocationSearch}
-          />
-          <LocationFinder>
-            <MyLocationIcon width='24' height='24' fill={theme.textInverted} />
-          </LocationFinder>
-        </Location>
-
-        {loading && <LoadingIcon size='large' color={theme.textInverted} />}
-        <ListContainer>
-          {list.map((item, i) => (
-            <ListItem data={item} key={i} />
-          ))}
-        </ListContainer>
-
-      </Scroller>
+  return (
+    <Container>
+      <ListContainer>
+        <FlatList
+          data={list}
+          keyExtractor={(item) => item.name + pagina}
+          renderItem={({ item }) => <ListItem data={item} />}
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          scrollEventThrottle={20}
+          ListFooterComponent={
+              <View style={{ height: 100 }}>
+                {loading && (
+                  <LoadingIcon size="large" color={theme.textInverted} />
+                )}
+              </View>
+          }
+          ListHeaderComponent={<HeaderComponent />}
+          showsVerticalScrollIndicator={false}
+          onEndReached={() => getBarbers()}
+          onEndReachedThreshold={0.1}
+          onScroll={Animated.event(
+            [
+              {
+                nativeEvent: {
+                  contentOffset: { y: scrollY },
+                },
+              },
+            ],
+            { useNativeDriver: false }
+          )}
+        />
+      </ListContainer>
     </Container>
   );
-}
+};
 
 export default Home;
