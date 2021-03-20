@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Alert, RefreshControl, Animated, View } from 'react-native';
+import { Alert, Animated, Text, View } from 'react-native';
 
 import {
   Container,
@@ -12,6 +12,7 @@ import {
   LoadingIcon,
   ListContainer,
   FlatList,
+  HeaderContainer,
 } from './styles';
 
 import SearchIcon from '../../../../assets/search.svg';
@@ -52,8 +53,7 @@ const Home = () => {
       if (pg === 1) {
         setList(response.data);
       } else {
-        // setList([...list, ...response.data]);
-        console.log('reload');
+        //setList([...list, ...response.data]);
       }
     } else {
       Alert.alert('Erro:' + response.error);
@@ -96,30 +96,11 @@ const Home = () => {
   }
 
   const HeaderComponent = (props) => (
-    <>
-      <Header
-        {...props}
-        style={{
-          height: scrollY.interpolate({
-            inputRange: [70, 160],
-            outputRange: [70, 0],
-            extrapolate: 'clamp',
-          }),
-          opacity: scrollY.interpolate({
-            inputRange: [30, 60],
-            outputRange: [1, 0],
-            extrapolate: 'clamp',
-          }),
-          marginBottom: scrollY.interpolate({
-            inputRange: [10, 70],
-            outputRange: [30, 73],
-            extrapolate: 'clamp',
-          }),
-        }}
-      >
+    <HeaderContainer>
+      <Header {...props}>
         <HeaderText numberOfLines={2}>Encontre os usuarios proximos</HeaderText>
         <SearchButton onPress={() => navigation.navigate('Search')}>
-          <SearchIcon width="26" height="26" fill={theme.textInverted} />
+          <SearchIcon width="26" height="26" fill={theme.primary} />
         </SearchButton>
       </Header>
 
@@ -132,32 +113,39 @@ const Home = () => {
           onEndEditing={handleLocationSearch}
         />
         <LocationFinder onPress={() => getLocation()}>
-          <MyLocationIcon width="24" height="24" fill={theme.textInverted} />
+          <MyLocationIcon width="24" height="24" fill={theme.primary} />
         </LocationFinder>
       </Location>
-    </>
+    </HeaderContainer>
   );
 
   return (
     <Container>
-      <ListContainer>
+      <HeaderComponent />
+      <ListContainer
+        style={{
+          marginTop: scrollY.interpolate({
+            inputRange: [10, 300],
+            outputRange: [-40, -200],
+            extrapolate: 'clamp',
+          }),
+        }}
+      >
         <FlatList
           data={list}
-          keyExtractor={(item:{name:string}) => item.name + pagina}
+          keyExtractor={(item: { name: string }) => item.name + pagina}
           renderItem={({ item }) => <ListItem data={item} />}
           refreshing={refreshing}
           onRefresh={onRefresh}
           scrollEventThrottle={20}
+          scrollEnabled={!loading}
           ListFooterComponent={
-              <View style={{ height: 100 }}>
-                {loading && (
-                  <LoadingIcon size="large" color={theme.textInverted} />
-                )}
-              </View>
+            <View style={{ height: 500 }}>
+              {loading && <LoadingIcon size="large" color={theme.tabColor} />}
+            </View>
           }
-          ListHeaderComponent={<HeaderComponent />}
           showsVerticalScrollIndicator={false}
-          onEndReached={() => getBarbers()}
+          onEndReached={() => getBarbers(pagina)}
           onEndReachedThreshold={0.1}
           onScroll={Animated.event(
             [

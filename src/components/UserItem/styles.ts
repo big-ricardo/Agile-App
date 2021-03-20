@@ -5,8 +5,7 @@ export const Container = styled.View`
     margin-bottom: 20px;
     border-radius: 20px;
     padding: 15px;
-    flex-direction: row
-
+    flex-direction: row;
 `
 
 export const Avatar = styled.Image`
