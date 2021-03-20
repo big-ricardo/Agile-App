@@ -2,7 +2,7 @@ import styled from 'styled-components/native'
 
 export const TabArea = styled.View`
     height: 60px;
-    background-color: ${props=> props.theme.second};
+    background-color: ${props=> props.theme.primary};
     flex-direction: row;
 `
 
@@ -19,6 +19,6 @@ export const TabItemCenter = styled.TouchableOpacity`
   align-items: center;
   background-color: ${props=>props.theme.textInverted};
   border-radius: 35px;
-  border: 3px solid  ${props=> props.theme.second};
+  border: 3px solid  ${props=> props.theme.primary};
   margin-top: -20px;
 `

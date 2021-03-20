@@ -4,7 +4,8 @@ export const light = {
     secondText: '#050505',
     textInverted: '#fff',
     primary: '#9F9FE9',
-    second: '#FFF8F1',
-    third: '#E1C1A4',
+    second: '#6464B7',
+    third: '#FFF8F1',
+    four: '#E1C1A4',
     tabColor: '#6464B7'
 }

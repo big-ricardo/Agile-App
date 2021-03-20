@@ -2,12 +2,13 @@ import styled from 'styled-components/native';
 
 export const Container = styled.SafeAreaView`
     flex: 1;
-    background-color: ${props => props.theme.textInverted};
+    background-color: ${props => props.theme.primary};
     padding-top: 20px;
 `;
 
 export const Scroller = styled.ScrollView`
   flex: 1;
+  background-color: ${props => props.theme.textInverted};
 `;
 
 const SwiperDot = styled.View`
@@ -105,7 +106,7 @@ export const Services = {
     `,
 
     Title: styled.Text`
-         color:${props => props.theme.tabColor};
+         color:${props => props.theme.second};
          font-size: 20px;
          font-weight: bold;
          margin-left: 30px;
@@ -119,7 +120,7 @@ export const Services = {
     Name: styled.Text`
         font-size: 16px;
         font-weight: bold;
-        color: ${props => props.theme.tabColor};
+        color: ${props => props.theme.second};
     `,
 
     Price: styled.Text`
@@ -129,7 +130,7 @@ export const Services = {
     `,
 
     Buttom: styled.TouchableOpacity`
-        background-color:${props => props.theme.tabColor};
+        background-color:${props => props.theme.second};
         border-radius: 10px;
         padding: 10px 15px;
     `,

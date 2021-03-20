@@ -23,19 +23,19 @@ const CustomTabBar = ({ state, navigation }) => {
     return (
         <TabArea>
             <TabItem onPress={() => goTo('Home')}>
-                <Icon IconSvg={HomeIcon} fill={state.index === 0 ? theme.tabColor : theme.primary }  />
+                <Icon IconSvg={HomeIcon} fill={theme.textInverted} style={{ opacity: state.index === 0 ? 1 : .7 }} />
             </TabItem>
             <TabItem onPress={() => goTo('Search')}>
-                <Icon IconSvg={SearchIcon} fill={state.index === 1 ? theme.tabColor : theme.primary } />
+                <Icon IconSvg={SearchIcon} fill={theme.textInverted} style={{ opacity: state.index === 1 ? 1 : .7 }} />
             </TabItem>
             <TabItemCenter onPress={() => goTo('Appointments')}>
-                <Icon IconSvg={TodayIcon}  fill={state.index === 2 ? theme.tabColor : theme.primary } width='32' height='32' />
+                <Icon IconSvg={TodayIcon} fill={state.index === 2 ? theme.second : theme.primary} width='32' height='32' />
             </TabItemCenter>
             <TabItem onPress={() => goTo('Favorites')}>
-                <Icon IconSvg={FavoriteIcon} fill={state.index === 3 ? theme.tabColor : theme.primary } />
+                <Icon IconSvg={FavoriteIcon} fill={theme.textInverted} style={{ opacity: state.index === 3 ? 1 : .7 }} />
             </TabItem>
             <TabItem onPress={() => goTo('Profile')}>
-                <Icon IconSvg={AccountIcon} fill={state.index === 4 ? theme.tabColor : theme.primary } />
+                <Icon IconSvg={AccountIcon} fill={theme.textInverted} style={{ opacity: state.index === 4 ? 1 : .7 }} />
             </TabItem>
         </TabArea>
     );

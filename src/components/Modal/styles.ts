@@ -11,7 +11,7 @@ export const Container = styled.View`
 `;
 
 export const Body = styled.View`
-  background-color: ${props => props.theme.primary};
+  background-color: ${props => props.theme.third};
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   min-height: 300px;
@@ -45,7 +45,7 @@ export const User = {
     `,
 
     Name: styled.Text`
-        color: ${props => props.theme.tabColor};
+        color: ${props => props.theme.second};
         font-size:18px;
         font-weight: bold;
     `,
@@ -66,13 +66,13 @@ export const Service = {
     Price: styled.Text`
         font-size:16px;
         font-weight: bold;
-        color: ${props => props.theme.tabColor};
+        color: ${props => props.theme.second};
     `,
 }
 
 export const FinishButton = styled.TouchableOpacity`
     height: 60px;
-    background-color: ${props => props.theme.tabColor};
+    background-color: ${props => props.theme.primary};
     justify-content: center;
     align-items: center;
     border-radius:20px;

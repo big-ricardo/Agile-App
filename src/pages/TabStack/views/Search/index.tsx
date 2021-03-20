@@ -3,12 +3,9 @@ import { Alert, Animated, Text, View } from 'react-native';
 
 import {
   Container,
-  Header,
-  HeaderText,
-  SearchButton,
-  Location,
-  LocationInput,
-  LocationFinder,
+  Search,
+  SearchInput,
+  SearchFinder,
   LoadingIcon,
   ListContainer,
   FlatList,
@@ -33,7 +30,6 @@ const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [list, setList] = useState([]);
   const [pagina, setPg] = useState(1);
-  const scrollY = new Animated.Value(0);
 
   const navigation = useNavigation();
   const theme = useContext(ThemeContext);
@@ -97,40 +93,25 @@ const Home = () => {
 
   const HeaderComponent = (props) => (
     <HeaderContainer>
-      <Header {...props}>
-        <HeaderText numberOfLines={2}>Encontre os usuarios proximos</HeaderText>
-        <SearchButton onPress={() => navigation.navigate('Search')}>
-          <SearchIcon width="26" height="26" fill={theme.textInverted} />
-        </SearchButton>
-      </Header>
 
-      <Location>
-        <LocationInput
+      <Search>
+        <SearchInput
           placeholder="Onde você esta?"
           placeholderTextColor={theme.primary}
           value={locationField}
           onChangeText={(e) => setLocationField(e)}
           onEndEditing={handleLocationSearch}
         />
-        <LocationFinder onPress={() => getLocation()}>
-          <MyLocationIcon width="24" height="24" fill={theme.primary} />
-        </LocationFinder>
-      </Location>
+        <SearchFinder onPress={() => getLocation()}>
+        <SearchIcon width="26" height="26" fill={theme.textInverted} />
+        </SearchFinder>
+      </Search>
     </HeaderContainer>
   );
 
   return (
     <Container>
-      <HeaderComponent />
-      <ListContainer
-        style={{
-          marginTop: scrollY.interpolate({
-            inputRange: [0, 220],
-            outputRange: [-40, -200],
-            extrapolate: 'clamp',
-          }),
-        }}
-      >
+      <ListContainer>
         <FlatList
           data={list}
           keyExtractor={(item: { name: string }) => item.name + pagina}
@@ -138,7 +119,7 @@ const Home = () => {
           refreshing={refreshing}
           onRefresh={onRefresh}
           scrollEventThrottle={20}
-          scrollEnabled={!loading}
+          ListHeaderComponent={ <HeaderComponent />}
           ListFooterComponent={
             <View style={{ height: 500 }}>
               {loading && <LoadingIcon size="large" color={theme.primary} />}
@@ -147,16 +128,6 @@ const Home = () => {
           showsVerticalScrollIndicator={false}
           onEndReached={() => getBarbers(pagina)}
           onEndReachedThreshold={0.1}
-          onScroll={Animated.event(
-            [
-              {
-                nativeEvent: {
-                  contentOffset: { y: scrollY },
-                },
-              },
-            ],
-            { useNativeDriver: false }
-          )}
         />
       </ListContainer>
     </Container>

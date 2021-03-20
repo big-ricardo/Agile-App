@@ -4,6 +4,7 @@ import { Alert } from 'react-native';
 import Swiper from 'react-native-swiper';
 import Api from '../../../../services/Api';
 import Stars from '../../../../components/Stars';
+import { StatusBar } from 'expo-status-bar';
 
 import {
   Container,
@@ -71,6 +72,7 @@ const UserComp = () => {
 
   return (
     <Container>
+      <StatusBar backgroundColor={theme.primary} style='dark'/>
       <Scroller>
         {user.photos && user.photos.length > 0 ? (
           <Swiper

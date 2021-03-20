@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-    background-color: ${props=>props.theme.second};
+    background-color: ${props=>props.theme.third};
     margin-bottom: 20px;
     border-radius: 20px;
     padding: 15px;
@@ -36,5 +36,5 @@ export const SeeProfile = styled.TouchableOpacity`
 
 export const SeeProfileText = styled.Text`
     font-size: 13px;
-    color: ${props=>props.theme.tabColor}
+    color: ${props=>props.theme.second}
 `
