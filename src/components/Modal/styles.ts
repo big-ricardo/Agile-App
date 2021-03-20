@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 export const Modal = styled.Modal`
-  
+
 `;
 
 export const Container = styled.View`
@@ -11,7 +11,7 @@ export const Container = styled.View`
 `;
 
 export const Body = styled.View`
-  background-color: ${props => props.theme.backgroundColor};
+  background-color: ${props => props.theme.primary};
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   min-height: 300px;
@@ -34,7 +34,7 @@ export const User = {
     Container: styled.View`
         flex-direction: row;
         align-items: center;
-        justify-content: space-around;
+        justify-content: flex-start;
     `,
 
     Avatar: styled.Image`
@@ -45,7 +45,7 @@ export const User = {
     `,
 
     Name: styled.Text`
-        color: ${props => props.theme.text};
+        color: ${props => props.theme.tabColor};
         font-size:18px;
         font-weight: bold;
     `,
@@ -58,7 +58,7 @@ export const Service = {
     `,
 
     Name: styled.Text`
-        color: ${props => props.theme.text};
+        color: ${props => props.theme.primary};
         font-size:16px;
         font-weight: bold;
     `,
@@ -66,13 +66,13 @@ export const Service = {
     Price: styled.Text`
         font-size:16px;
         font-weight: bold;
-        color: ${props => props.theme.text};
+        color: ${props => props.theme.tabColor};
     `,
 }
 
 export const FinishButton = styled.TouchableOpacity`
     height: 60px;
-    background-color: ${props => props.theme.primary};
+    background-color: ${props => props.theme.tabColor};
     justify-content: center;
     align-items: center;
     border-radius:20px;
@@ -100,7 +100,7 @@ export const DateInfo = {
         text-align: center;
         font-weight: bold;
         font-size: 17px;
-        color: ${props => props.theme.secondText}
+        color: ${props => props.theme.primary}
     `,
 
     Next: styled.TouchableOpacity`
@@ -123,13 +123,11 @@ export const DateInfo = {
     Weekday: styled.Text`
         font-size: 16px;
         font-weight: bold;
-        color: ${props => props.theme.text}
     `,
 
     Number: styled.Text`
         font-size: 16px;
         font-weight: bold;
-        color: ${props => props.theme.text}
     `,
 
     Loading: styled.Text`

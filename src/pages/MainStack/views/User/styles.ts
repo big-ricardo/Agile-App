@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 export const Container = styled.SafeAreaView`
     flex: 1;
     background-color: ${props => props.theme.textInverted};
+    padding-top: 20px;
 `;
 
 export const Scroller = styled.ScrollView`
@@ -20,7 +21,7 @@ const SwiperDot = styled.View`
 export const MySwiper = {
     Fake: styled.View`
         height:240px;
-        background-color: ${props => props.theme.backgroundColor};
+        background-color: ${props => props.theme.primary};
     `,
 
     Img: styled.Image`
@@ -36,7 +37,7 @@ export const MySwiper = {
     Dot: SwiperDot,
 
     DotActive: styled(SwiperDot)`
-        background-color: ${props => props.theme.primary};
+        background-color: ${props => props.theme.tabColor};
     `,
 
 }
@@ -104,7 +105,7 @@ export const Services = {
     `,
 
     Title: styled.Text`
-         color:${props => props.theme.primary};
+         color:${props => props.theme.tabColor};
          font-size: 20px;
          font-weight: bold;
          margin-left: 30px;
@@ -118,18 +119,19 @@ export const Services = {
     Name: styled.Text`
         font-size: 16px;
         font-weight: bold;
-        color: ${props => props.theme.primary};
+        color: ${props => props.theme.tabColor};
     `,
 
     Price: styled.Text`
         font-size: 14px;
         color: ${props => props.theme.primary};
+        font-weight: bold;
     `,
 
     Buttom: styled.TouchableOpacity`
-        background-color:${props => props.theme.primary};
+        background-color:${props => props.theme.tabColor};
         border-radius: 10px;
-        padding: 10px 15px; 
+        padding: 10px 15px;
     `,
 
     ButtomText: styled.Text`
@@ -150,7 +152,7 @@ export const Depositions = {
     `,
 
     Item: styled.View`
-        background-color: ${props=>props.theme.tabColor};
+        background-color: ${props=>props.theme.primary};
         padding: 15px;
         border-radius: 15px;
         height: 110px;
@@ -184,7 +186,7 @@ export const LoadingIcon = styled.ActivityIndicator`
 
 export const BackBotton = styled.TouchableOpacity`
     position: absolute;
-    top: 10px;
+    top: 20px;
     left: 0;
     z-index: 15;
 `;

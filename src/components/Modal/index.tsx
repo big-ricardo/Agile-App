@@ -9,7 +9,6 @@ import NextIcon from '../../assets/nav_next.svg'
 
 import { ThemeContext } from 'styled-components';
 import { useNavigation } from '@react-navigation/core';
-import Api from '../../Api';
 
 const Months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
 
@@ -37,7 +36,7 @@ const ModalComp = ({ show, setShow, user, service }) => {
     useEffect(() => {
         if (user.available) {
             setListDays([])
-            async function getList() {
+            const getList = async () => {
                 const daysInMonth = new Date(selectedYear, selectedMonth + 1, 0).getDate()
                 let newListDays = []
                 for (let i = 1; i <= daysInMonth; i++) {
@@ -121,7 +120,7 @@ const ModalComp = ({ show, setShow, user, service }) => {
             selectedHour !== null
         ) {
             // const response = await Api.setAppointments(
-            //     user.id, 
+            //     user.id,
             //     service,
             //     selectedYear,
             //     selectedMonth,
@@ -135,7 +134,7 @@ const ModalComp = ({ show, setShow, user, service }) => {
                 setShow(false)
                 navigation.navigate('Appointments')
             } else {
-                Alert.alert(res.error)
+                Alert.alert(response.error)
             }
             setShow(false)
 
@@ -197,12 +196,12 @@ const ModalComp = ({ show, setShow, user, service }) => {
                                         >
                                             <DateInfo.Weekday
                                                 style={{
-                                                    color: selectedDay === item.number ? theme.textInverted : theme.text
+                                                    color: selectedDay === item.number ? theme.textInverted : theme.tabColor
                                                 }}
                                             > {item.weekday} </DateInfo.Weekday>
                                             <DateInfo.Number
                                                 style={{
-                                                    color: selectedDay === item.number ? theme.textInverted : theme.text
+                                                    color: selectedDay === item.number ? theme.textInverted : theme.tabColor
                                                 }}
                                             > {item.number} </DateInfo.Number>
                                         </DateInfo.Item>
@@ -229,7 +228,7 @@ const ModalComp = ({ show, setShow, user, service }) => {
                                     >
                                         <Hours.Text
                                             style={{
-                                                color: selectedHour === item ? theme.textInverted : theme.text
+                                                color: selectedHour === item ? theme.textInverted : theme.tabColor
                                             }}
                                         >{item}</Hours.Text>
                                     </Hours.Item>

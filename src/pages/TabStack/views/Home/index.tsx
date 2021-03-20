@@ -143,7 +143,7 @@ const Home = () => {
       <ListContainer>
         <FlatList
           data={list}
-          keyExtractor={(item) => item.name + pagina}
+          keyExtractor={(item:{name:string}) => item.name + pagina}
           renderItem={({ item }) => <ListItem data={item} />}
           refreshing={refreshing}
           onRefresh={onRefresh}

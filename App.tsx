@@ -16,7 +16,7 @@ export default () => {
           <MainStack />
         </NavigationContainer>
       </ThemeProvider>
-      <StatusBar style="auto" />
+      <StatusBar style="auto" translucent />
     </>
   );
 };
