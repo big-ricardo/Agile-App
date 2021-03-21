@@ -1,9 +1,11 @@
 export default interface User {
-  id: string
+  id: string | null,
   name: string,
   avatar: string,
-  stars: string,
+  stars: number,
   services?: [],
   photos?: [],
-  testimonials?: []
+  testimonials?: [],
+  favorites?: [],
+  appointments?: []
 }

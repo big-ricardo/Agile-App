@@ -9,7 +9,7 @@ const InputComponent = ({ Icon, ...props }) => {
 
     return (
         <Container>
-            <Icon width='24' height='24' fill={theme.third}/>
+            <Icon width='24' height='24' fill={theme.primary}/>
             <Input {...props} />
         </Container>
     );

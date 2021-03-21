@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Agile-App",
-    "slug": "Agile-App",
+    "name": "Agile",
+    "slug": "Agile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,7 +23,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.luisricar_do.Agile"
     },
     "web": {
       "favicon": "./assets/favicon.png"

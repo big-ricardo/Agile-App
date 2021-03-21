@@ -15,7 +15,7 @@ import { ThemeContext } from 'styled-components';
 import { UserContext } from '../../../../contexts/User';
 
 const SignIn = () => {
-  const { dispatch: useDispatch } = useContext(UserContext)
+  const { dispatch: userDispatch } = useContext(UserContext)
   const navigate = useNavigation()
   const theme = useContext(ThemeContext)
 
@@ -26,13 +26,13 @@ const SignIn = () => {
 
     if (userField !== '' && passwordField !== '') {
       const response = await Api.signIn(userField, passwordField)
-      console.log(response);
       if (response.token) {
         await AsyncStorage.setItem('token', response.token)
-        await useDispatch({
-          type: 'setAvatar',
-          payload:{
-            avatar:response.data.avatar
+        userDispatch({
+          type: 'setUser',
+          payload: {
+            token: response.token,
+            ...response.data
           }
         })
 

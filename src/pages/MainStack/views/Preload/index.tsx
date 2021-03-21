@@ -27,9 +27,10 @@ const Preload = () => {
         if (response.token) {
           await AsyncStorage.setItem('token', response.token)
           userDispatch({
-            type: 'setAvatar',
+            type: 'setUser',
             payload: {
-              avatar: response.data.avatar
+              token: response.token,
+              ...response.data
             }
           })
           navigation.reset({
