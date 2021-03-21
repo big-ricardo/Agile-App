@@ -12,10 +12,10 @@ import LockIcon from '../../../../assets/lock.svg'
 import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ThemeContext } from 'styled-components';
-// import { UserContext } from '../../../contexts/User';
+import { UserContext } from '../../../../contexts/User';
 
 const SignIn = () => {
-  //const {dispatch: userDispatch} = useContext(UserContext)
+  const { dispatch: useDispatch } = useContext(UserContext)
   const navigate = useNavigation()
   const theme = useContext(ThemeContext)
 
@@ -29,12 +29,12 @@ const SignIn = () => {
       console.log(response);
       if (response.token) {
         await AsyncStorage.setItem('token', response.token)
-        // userDispatch({
-        //   type: 'setAvatar',
-        //   payload:{
-        //     avatar:response.data.avatar
-        //   }
-        // })
+        await useDispatch({
+          type: 'setAvatar',
+          payload:{
+            avatar:response.data.avatar
+          }
+        })
 
         navigate.reset({
           routes: [{ name: 'MainTab' }]

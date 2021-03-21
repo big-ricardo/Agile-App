@@ -9,9 +9,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useNavigation } from '@react-navigation/native';
 import Api from '../../../../services/Api';
+import { UserContext } from '../../../../contexts/User';
 
-const Preload = (props) => {
-  // const { dispatch: userDispatch } = useContext(UserContext)
+const Preload = () => {
+  const { dispatch: userDispatch } = useContext(UserContext)
   const theme = useContext(ThemeContext);
   const navigation = useNavigation();
 
@@ -25,12 +26,12 @@ const Preload = (props) => {
         const response = await Api.checkToken(token)
         if (response.token) {
           await AsyncStorage.setItem('token', response.token)
-          // userDispatch({
-          //   type: 'setAvatar',
-          //   payload: {
-          //     avatar: response.data.avatar
-          //   }
-          // })
+          userDispatch({
+            type: 'setAvatar',
+            payload: {
+              avatar: response.data.avatar
+            }
+          })
           navigation.reset({
             routes: [{ name: 'MainTab' }]
           })

@@ -85,7 +85,6 @@ const Home = () => {
       Alert.alert('Permissão negada!');
       return;
     }
-
     const {
       coords: { latitude, longitude },
     } = await geoLocation.getCurrentPositionAsync({});

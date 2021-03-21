@@ -22,3 +22,8 @@ export const TabItemCenter = styled.TouchableOpacity`
   border: 3px solid  ${props=> props.theme.primary};
   margin-top: -20px;
 `
+export const AvatarIcon = styled.Image`
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+`

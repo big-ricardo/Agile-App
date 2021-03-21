@@ -47,4 +47,6 @@ export const ListContainer = styled(Animated.View)`
   border-top-right-radius: 40px;
   min-height: 300px;
   margin-top: 40px;
+  margin-left: 3px;
+  margin-right: 3px;
 `
